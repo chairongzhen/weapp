@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect,useState } from "react";
 import { View, Text, Image, Input } from "@tarojs/components";
 import { AtIcon, AtSlider, AtInput } from "taro-ui";
 import Taro from "@tarojs/taro";
@@ -13,21 +13,29 @@ import GreenPng from "@assets/images/green.png";
 import RedPng from "@assets/images/red.png";
 import WhitePng from "@assets/images/white.png";
 
+import { xAsixData,TimeSetting } from './index';
+import '@utils/util';
+
+
 import Operation from "./operation";
 
-export default function LightSetting() {
-  const onLightChanged = (index, value) => {
-    console.log(`the index is: ${index} and the value is ${value}`);
+export default function LightSetting({current,onChange}) {
+  const [currentTick,setCurrentTick] = useState<number>(current);
+  const onLightChanged = (index,value) => {
+    onChange(index,currentTick,value);
   };
+
+  const onTickChanged = (tick) => {
+    setCurrentTick(tick);
+  }
+
+  useEffect(()=>{
+    setCurrentTick(current);
+  },[current])
 
   return (
     <View className="p_lightsetting">
-      <View>
-        <AtIcon value="add-circle" size="25" color="#F68717"></AtIcon>
-        <text>13:30</text>
-        <AtIcon value="subtract-circle" size="25" color="#F68717"></AtIcon>
-      </View>
-
+      <TimeSetting  tick={currentTick} onChange={onTickChanged}/>
       <Operation
         index={1}
         png={PurplePng}

@@ -24,15 +24,25 @@ export default function Light() {
   const onRepeatChange = (val) => {
     setTick(val);
   }
+
+  const onSetting = (index,tick,value)=> {
+    console.log(`the index is: ${index} ;  and tick is: ${tick} ; and the value is ${value}`);
+  }
+
+  useEffect(()=>{
+    if(currentTab === 0) {
+      
+    }
+  },[currentTab])
   
   return (
     <View className="p_light">
       <AtTabs current={currentTab} tabList={tabList} swipeable={false} onClick={onTabSelected}>
         <AtTabsPane current={currentTab} index={0}>
-          <LightSetting />
+          <RepeatSettiing data={yData} current={tick} onChange={onRepeatChange} />
         </AtTabsPane>
         <AtTabsPane current={currentTab} index={1}>
-          <RepeatSettiing data={yData} current={tick} onChange={onRepeatChange} />
+          <LightSetting current={tick} onChange={onSetting} />
         </AtTabsPane>
       </AtTabs>
     </View>
