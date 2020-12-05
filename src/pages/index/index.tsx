@@ -9,10 +9,6 @@ import "./index.less";
 import LogoImage from "@assets/images/logo.png";
 
 export default function Index() {
-  useEffect(() => {
-    const { router } = getCurrentInstance();
-    console.log("the route is:", router);
-  }, []);
   return (
     <View className="p_index">
       <View>

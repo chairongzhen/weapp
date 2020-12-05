@@ -3,7 +3,7 @@ export default {
     "pages/index/index",
     "pages/light/index",
     "pages/setting/index",
-    "pages/machine/index"
+    "pages/machine/index",
   ],
   tabBar: {
     color: "#999999",

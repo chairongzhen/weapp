@@ -1221,6 +1221,13 @@
   dependencies:
     "@tarojs/runtime" "3.0.14"
 
+"@tarojs/api@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@tarojs/api/-/api-3.0.8.tgz#45d74ebe32221e533ccc7edab22e5a491679af14"
+  integrity sha512-i1vHc3hRRJ2OJHTDhxfQj5mGnZvIJLhkNjRWRduthk/SLaffz2nd74Dd1FJFUXYwWASanP7ATIccH3pSHnVrLg==
+  dependencies:
+    "@tarojs/runtime" "3.0.8"
+
 "@tarojs/cli@3.0.14":
   version "3.0.14"
   resolved "https://registry.npm.taobao.org/@tarojs/cli/download/@tarojs/cli-3.0.14.tgz#08caeedb9716f4c84cbb834c80fab186e2d36ead"
@@ -1410,12 +1417,31 @@
     react-reconciler "^0.23.0"
     scheduler "^0.17.0"
 
+"@tarojs/react@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@tarojs/react/-/react-3.0.8.tgz#bf2d1e916b7adc0b012949a63d98ab3806963b10"
+  integrity sha512-AJNKIq7MdgzOXp1ydHacnTU81xDcbuuB2ZWJZ+YW55ZnFkPoVhUHHHu0ZIiJOeg5Aza42lCSsfkw4fOsQIfvjw==
+  dependencies:
+    "@tarojs/runtime" "3.0.8"
+    react-reconciler "^0.23.0"
+    scheduler "^0.17.0"
+
 "@tarojs/router@3.0.14":
   version "3.0.14"
   resolved "https://registry.npm.taobao.org/@tarojs/router/download/@tarojs/router-3.0.14.tgz#b781263c05143b985d680da7c9854b62c3d8df3e"
   integrity sha1-t4EmPAUUO5hdaA2nyYVLYsPY3z4=
   dependencies:
     "@tarojs/runtime" "3.0.14"
+    history "^4.10.1"
+    universal-router "^8.3.0"
+    url-parse "^1.4.7"
+
+"@tarojs/router@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@tarojs/router/-/router-3.0.8.tgz#65d52f6c4b77c03d45dedcd6d6fcd9ccb4c5d8cd"
+  integrity sha512-HfGH3Olu0CKh4cd6IO0zAGXhLrcycfOm38PVKChVnKkUturpbjl9jokiNh0uVu8sUppGqU9GeR/4ZZUfydavoA==
+  dependencies:
+    "@tarojs/runtime" "3.0.8"
     history "^4.10.1"
     universal-router "^8.3.0"
     url-parse "^1.4.7"
@@ -1436,6 +1462,11 @@
   version "3.0.14"
   resolved "https://registry.npm.taobao.org/@tarojs/runtime/download/@tarojs/runtime-3.0.14.tgz#e337472524d0221be3b2b2e6642278f73f01b610"
   integrity sha1-4zdHJSTQIhvjsrLmZCJ49z8BthA=
+
+"@tarojs/runtime@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@tarojs/runtime/-/runtime-3.0.8.tgz#f21dddb09299ea57a0475e34ddc1ba995c910749"
+  integrity sha512-x1I70byvRwlqh+XuB04KYkM487GrrEMWgjmKAWcgkkAF9FTpL+7EN69VcXvdUFqU+dAqi0tp0np4LvOjd87PiA==
 
 "@tarojs/service@3.0.14":
   version "3.0.14"
@@ -1469,6 +1500,21 @@
     raf "^3.4.1"
     whatwg-fetch "^3.4.0"
 
+"@tarojs/taro-h5@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@tarojs/taro-h5/-/taro-h5-3.0.8.tgz#d8ddc5b34b1ce2452369b7da650f24e5762a254a"
+  integrity sha512-TZoKp/4Gidwbh3cmFcUrL0TJtVX6wiJ0PjqbPftvyV+pT3JPoCnblWJ5zj/OnWgYgSA4/8nAE69AZMt5ZHy/6Q==
+  dependencies:
+    "@tarojs/api" "3.0.8"
+    "@tarojs/router" "3.0.8"
+    "@tarojs/runtime" "3.0.8"
+    base64-js "^1.3.0"
+    jsonp-retry "^1.0.3"
+    mobile-detect "^1.4.2"
+    raf "^3.4.1"
+    unfetch "^4.1.0"
+    whatwg-fetch "^2.0.4"
+
 "@tarojs/taro-loader@3.0.14":
   version "3.0.14"
   resolved "https://registry.npm.taobao.org/@tarojs/taro-loader/download/@tarojs/taro-loader-3.0.14.tgz#ecc80ce8e77b38f691c38b50e9b877883b765706"
@@ -1483,6 +1529,14 @@
   dependencies:
     "@tarojs/api" "3.0.14"
     "@tarojs/taro-h5" "3.0.14"
+
+"@tarojs/taro@3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@tarojs/taro/-/taro-3.0.8.tgz#cbfa38f7e9f26c7e5b3d18ff3c80c1e1a9053506"
+  integrity sha512-IbLDjK5zQTYASYAMerb0HxF7TvMgGUJxpO8Rs/q8rtJhgaalvBjD2boJYxxRgKrLpBm4LCobu+jM7+H4lx9qYw==
+  dependencies:
+    "@tarojs/api" "3.0.8"
+    "@tarojs/taro-h5" "3.0.8"
 
 "@tarojs/taroize@3.0.14":
   version "3.0.14"
@@ -4884,6 +4938,16 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts-taro3-react@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/echarts-taro3-react/-/echarts-taro3-react-1.0.8.tgz#d043611fa96a89d4f3be224bbb1b4ba8ca77e0db"
+  integrity sha512-3kvDd/cHXd+AAayDoP/Zk4R7aR9bhhLHvNouxgh8ybPJk29h0rQSjFO59VTT/PEAMtB9w1ztJKk5Z/4oUtocrg==
+  dependencies:
+    "@tarojs/react" "3.0.8"
+    "@tarojs/taro" "3.0.8"
+    react "^16.10.0"
+    react-dom "^16.10.0"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -8649,6 +8713,11 @@ mime@^2.3.1, mime@^2.4.4:
   version "2.4.6"
   resolved "https://registry.npm.taobao.org/mime/download/mime-2.4.6.tgz?cache=0&sync_timestamp=1592843216793&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmime%2Fdownload%2Fmime-2.4.6.tgz#e5b407c90db442f2beb5b162373d07b69affa4d1"
   integrity sha1-5bQHyQ20QvK+tbFiNz0Htpr/pNE=
+
+miment@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/miment/-/miment-0.0.9.tgz#79864f8793e7d0e908e84568735e3b172022d7ed"
+  integrity sha512-pfjF/jPPxCaR7swQIKbWHBfSJAw47e4iZQPM6HzuexSDiZRPj8bx3rNzP4G/oK37+skbM/9eidoX9awJJfgLAg==
 
 mimic-fn@^1.0.0:
   version "1.2.0"
@@ -12523,6 +12592,11 @@ taro-ui@^3.0.0-alpha.3:
     lodash "^4.17.10"
     prop-types "^15.7.2"
 
+techarts@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/techarts/-/techarts-3.0.3.tgz#747668c2c4342acccf87a14d353f08e77cc5bf48"
+  integrity sha512-9WWmqvOQgu/eu38epB9n2XGvw6CKugnfgapeZA74QIaRUxUTqwH4w1fVy81brGv0nbt8tvCkGBpcnrGcjmGRPQ==
+
 term-size@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/term-size/download/term-size-1.2.0.tgz#458b83887f288fc56d6fffbfad262e26638efa69"
@@ -12959,6 +13033,11 @@ unescape-js@^1.1.1:
   integrity sha1-S8Y4nEmcsFWpg2SgswlOHD1do5U=
   dependencies:
     string.fromcodepoint "^0.2.1"
+
+unfetch@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.2.0.tgz#7e21b0ef7d363d8d9af0fb929a5555f6ef97a3be"
+  integrity sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==
 
 unherit@^1.0.4:
   version "1.1.3"
@@ -13683,6 +13762,11 @@ whatwg-fetch@>=0.10.0, whatwg-fetch@^3.4.0:
   version "3.5.0"
   resolved "https://registry.npm.taobao.org/whatwg-fetch/download/whatwg-fetch-3.5.0.tgz#605a2cd0a7146e5db141e29d1c62ab84c0c4c868"
   integrity sha1-YFos0KcUbl2xQeKdHGKrhMDEyGg=
+
+whatwg-fetch@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
+  integrity sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==
 
 whatwg-mimetype@^2.2.0, whatwg-mimetype@^2.3.0:
   version "2.3.0"
