@@ -13,13 +13,16 @@ export default function Operation({ index, png, color, value, onChange }) {
     setCurrent(val);
     onChange(index, val);
   };
-
   const onTextChanged = val => {
     let result = 0;
     result = parseInt(val?.detail?.value);
     setCurrent(result);
     onChange(index, result);
   };
+
+  useEffect(() => {
+    setCurrent(value);
+  }, [value]);
 
   return (
     <View>
