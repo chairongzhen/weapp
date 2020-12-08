@@ -236,7 +236,7 @@ export const useUpdate = (tag, values) => {
     {
       openid: Taro.getStorageSync("unionid"),
       tag: tag,
-      values: values
+      lights: values
     },
     "POST"
   );

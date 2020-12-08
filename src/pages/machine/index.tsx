@@ -41,7 +41,6 @@ export default function Machine() {
   const onScan = () => {
     Taro.scanCode({
       success: function(res) {
-        console.log("the res is:", res);
         if(res.result) {
           addMac(res.result);
         }

@@ -8,7 +8,7 @@ import "@utils/util";
 import { AtIcon } from "taro-ui";
 import "taro-ui/dist/style/components/icon.scss";
 
-export default function RepeatSetting({ data, current, onChange, onAdd }) {
+export default function RepeatSetting({ data, current, onChange, onAdd,onEmpty }) {
   const [options, setOptions] = useState<any>(null);
   const [tick, setTick] = useState<number>(current);
   const onCurrrentChanged = val => {
@@ -25,9 +25,19 @@ export default function RepeatSetting({ data, current, onChange, onAdd }) {
     onAdd();
   };
 
+  const onEmptyClick = () => {
+    onEmpty();
+  }
+
   useEffect(() => {
     setOptions(getOptions(data, tick, onHandleChanged));
   }, [data, tick]);
+
+  const canAdd = ()=> {
+    if(data?.tags.indexOf(tick) > -1 ) {
+      console.log('here we go...',tick);
+    }
+  }
 
   return (
     <View className="p_repeatsetting">
@@ -47,7 +57,7 @@ export default function RepeatSetting({ data, current, onChange, onAdd }) {
         <AtIcon value="play" size="25" color="#f79e44"></AtIcon>
         <AtIcon value="prev" size="25" color="#f79e44"></AtIcon>
         <AtIcon value="next" size="25" color="#f79e44"></AtIcon>
-        <AtIcon value="trash" size="25" color="#f79e44"></AtIcon>
+        <AtIcon onClick={onEmptyClick} value="trash" size="25" color="#f79e44"></AtIcon>
       </View>
     </View>
   );

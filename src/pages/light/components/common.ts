@@ -569,10 +569,10 @@ export const getCurrentIndex = () => {
   if (currentmin > 30 && currentmin <= 40) currentmin = 40;
   if (currentmin > 40 && currentmin <= 50) currentmin = 50;
   if (currentmin > 50 && currentmin <= 59) {
-    currentmin = 10;
-    currenthour += 1;
+    currentmin = 0;
+    currenthour =  parseInt(currenthour) + 1;
   }
-  let result: string = `${parseInt(currenthour)}:${currentmin}`;
+  let result: string = `${currenthour}:${currentmin<10?`0${currentmin}`:currentmin}`;
   console.log("the result is:", moment().format("hh"), currenthour, result);
   return result;
 };

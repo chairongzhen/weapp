@@ -1,43 +1,43 @@
-export const defaultHost = "https://www.polypite.com";
+export const defaultHost = "http://127.0.0.1:7001";
 
 export const config = {
   apiGetSet: {
-    url: "/service/getset"
+    url: "/getset"
   },
   apiUpdateSet: {
-    url: "/service/updateset"
+    url: "/updateset"
   },
   apiGetBinds: {
-    url: "/service/getbinds"
+    url: "/getbinds"
   },
   apiUnBind: {
-    url: "/service/unbindforapp"
+    url: "/unbindforapp"
   },
   apiBindMid: {
-    url: "/service/bindmid"
+    url: "/bindmid"
   },
   apiUpdateFix: {
-    url: "/service/updatefix"
+    url: "/updatefix"
   },
   apiGetFix: {
-    url: "/service/getfix"
+    url: "/getfix"
   },
   apiGetRepeats: {
-    url: "/service/getrepeats"
+    url: "/getrepeats"
   },
   apiDelTag: {
-    url: "/service/deltag"
+    url: "/deltag"
   },
   apiEmpty: {
-    url: "/service/emptytagsios"
+    url: "/emptytagsios"
   },
   apiGetTagVal: {
-    url: "/service/gettagvalueios"
+    url: "/gettagvalueios"
   },
   apiWxLogin: {
-    url: "/service/wxlogin"
+    url: "/wxlogin"
   },
   apiUpdateTagVal: {
-    url: "/service/updatetags"
+    url: "/updatetags"
   }
 };

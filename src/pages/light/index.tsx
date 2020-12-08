@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
-import { AtTabs, AtTabsPane } from "taro-ui";
+import { AtTabs, AtTabsPane,AtMessage } from "taro-ui";
 import Taro from "@tarojs/taro";
 import {
   LightSetting,
@@ -9,11 +9,12 @@ import {
   xAsixData
 } from "./components/index";
 import "@utils/util";
-import { useRepeatData } from "./index.hooks";
+import { useRepeatData,useEmpty } from "./index.hooks";
 
 import "@styles/global.less";
 import "./index.less";
 import "taro-ui/dist/style/components/tabs.scss";
+import "taro-ui/dist/style/components/message.scss";
 
 export default function Light() {
   const tabList = [{ title: "循环模式" }, { title: "亮度设置" }];
@@ -21,26 +22,37 @@ export default function Light() {
   const [tick, setTick] = useState<number>(
     xAsixData.getArrayIndex(getCurrentIndex())
   );
-  const { results, loading, isSuccess } = useRepeatData();
+  const { results, loading, isSuccess,run } = useRepeatData();
   const [repeatData, setRepeatdata] = useState<Array<any>>([]);
   //   const [detailData, setDetailData] = useState<any>();
 
   const onTabSelected = index => {
+    console.log('the tab index is:', index);
     setCurrentTab(index);
   };
   const onRepeatChange = val => {
     setTick(val);
   };
 
-  const onSetting = (index, tick, value) => {
-    console.log(
-      `the index is: ${index} ;  and tick is: ${tick} ; and the value is ${value}`
-    );
+  const onSetting = () => {
+    run();
   };
 
   const onAdd = () => {
     setCurrentTab(1);
   };
+
+  const onEmpty = () => {
+    useEmpty().then(res=>{
+      if(res?.data?.isSuccess) {
+          Taro.atMessage({
+            message: "已清空亮度设置",
+            type: "success"
+          });
+          run();
+        }
+    });
+  }
 
   //   const {
   //     detail,
@@ -53,6 +65,7 @@ export default function Light() {
   useEffect(() => {
     if (currentTab === 1) {
     }
+    
   }, [currentTab]);
 
   useEffect(() => {
@@ -66,14 +79,15 @@ export default function Light() {
   //       setDetailData(detail);
   //     }
   //   }, [detail_loading]);
-
   return (
     <View className="p_light">
+      <AtMessage />
       <AtTabs
         current={currentTab}
         tabList={tabList}
         swipeable={false}
         onClick={onTabSelected}
+
       >
         <AtTabsPane current={currentTab} index={0}>
           <RepeatSettiing
@@ -81,6 +95,7 @@ export default function Light() {
             current={tick}
             onChange={onRepeatChange}
             onAdd={onAdd}
+            onEmpty={onEmpty}
           />
         </AtTabsPane>
         <AtTabsPane current={currentTab} index={1}>
@@ -90,6 +105,7 @@ export default function Light() {
             onChange={onSetting}
           />
         </AtTabsPane>
+
       </AtTabs>
     </View>
   );

@@ -3,7 +3,7 @@ import { View, Text, Image, Input } from "@tarojs/components";
 import { AtIcon, AtSlider, AtInput } from "taro-ui";
 import Taro from "@tarojs/taro";
 import "@styles/global.less";
-import "./lightSetting.less";
+// import "./lightSetting.less";
 import "taro-ui/dist/style/components/slider.scss";
 import "taro-ui/dist/style/components/input.scss";
 
