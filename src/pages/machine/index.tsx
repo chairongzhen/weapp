@@ -42,6 +42,9 @@ export default function Machine() {
     Taro.scanCode({
       success: function(res) {
         console.log("the res is:", res);
+        if(res.result) {
+          addMac(res.result);
+        }
       }
     });
   };
@@ -77,6 +80,24 @@ export default function Machine() {
     }
   };
 
+  const addMac = (mid) => {
+    bindMac(mid).then(res => {
+      if (!res?.data?.isSuccess) {
+        Taro.atMessage({
+          message: res?.data?.message,
+          type: "error"
+        });
+        return;
+      }
+      Taro.atMessage({
+        message: "绑定成功",
+        type: "success"
+      });
+      run();
+      setShowModal(false);
+    });
+  }
+
   const onAdd = () => {
     if (input.length === 0) {
       Taro.atMessage({
@@ -84,21 +105,7 @@ export default function Machine() {
         type: "error"
       });
     } else {
-      bindMac(`esp_${input}`).then(res => {
-        if (!res?.data?.isSuccess) {
-          Taro.atMessage({
-            message: res?.data?.message,
-            type: "error"
-          });
-          return;
-        }
-        Taro.atMessage({
-          message: "绑定成功",
-          type: "success"
-        });
-        run();
-        setShowModal(false);
-      });
+      addMac(`esp_${input}`);
     }
   };
 

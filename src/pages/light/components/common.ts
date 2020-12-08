@@ -26,6 +26,21 @@ export const xAsixData = ["0:00", "0:10", "0:20", "0:30", "0:40", "0:50",
 "23:00", "23:10", "23:20", "23:30", "23:40", "23:50","00:00"
 ];
 
+let test = [0, null, null, 100, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 100, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,80,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+let test2 = [50,{
+  value:100,
+  symbol: 'star',  // 数据级个性化拐点图形
+  symbolSize : 15,
+  itemStyle : { normal: {label : {
+      show: true,
+      textStyle : {
+          fontSize : '20',
+          fontFamily : '微软雅黑',
+          fontWeight : 'bold'
+      }
+  }}}
+},,null,null,null,null,null,100,0,null]
+
 export const getOptions = (data,selected,onHandleChange) => {
     return {
         title: {
@@ -134,16 +149,110 @@ export const getOptions = (data,selected,onHandleChange) => {
           // show: false
         },
         series: [{
-            name: "A",
+            name: "l1",
             type: "line",
             smooth: true,
-            data: data
-            // data: [1800, 360, 65, 30, 780, 40, 33]
+            data: data.l1,
+            connectNulls:true,
+            itemStyle: {
+              normal: {
+                  lineStyle: {
+                      color: "#6b4e8a"
+                  }
+              }
+          },
           },{
-            data: [0,100,0,100,0,50,40,30,100],
-            type: 'line',
-            
-        }],
+            name: "l2",
+            type: "line",
+            smooth: true,
+            data: data.l2,
+            connectNulls:true,
+            itemStyle: {
+              normal: {
+                  lineStyle: {
+                      color: "#8662ac"
+                  }
+              }
+          },
+          },{
+            name: "l3",
+            type: "line",
+            smooth: true,
+            data: data.l3,
+            connectNulls:true,
+            itemStyle: {
+              normal: {
+                  lineStyle: {
+                      color: "#2277a2"
+                  }
+              }
+          },
+          },{
+            name: "l4",
+            type: "line",
+            smooth: true,
+            data: data.l4,
+            connectNulls:true,
+            itemStyle: {
+              normal: {
+                  lineStyle: {
+                      color: "#4d91b4"
+                  }
+              }
+          },
+          },{
+            name: "l5",
+            type: "line",
+            smooth: true,
+            data: data.l5,
+            connectNulls:true,
+            itemStyle: {
+              normal: {
+                  lineStyle: {
+                      color: "#1b5f82"
+                  }
+              }
+          },
+          },{
+            name: "l6",
+            type: "line",
+            smooth: true,
+            data: data.l6,
+            connectNulls:true,
+            itemStyle: {
+              normal: {
+                  lineStyle: {
+                      color: "#4f805d"
+                  }
+              }
+          },
+          },{
+            name: "l7",
+            type: "line",
+            smooth: true,
+            data: data.l7,
+            connectNulls:true,
+            itemStyle: {
+              normal: {
+                  lineStyle: {
+                      color: "#b34a4a"
+                  }
+              }
+          },
+          },{
+            name: "l8",
+            type: "line",
+            smooth: true,
+            data: data.l8,
+            connectNulls:true,
+            itemStyle: {
+              normal: {
+                  lineStyle: {
+                      color: "#7e8790"
+                  }
+              }
+          },
+          }],
     
         
       };
