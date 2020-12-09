@@ -25,7 +25,6 @@ export default function Light() {
   const { results, loading, isSuccess,run } = useRepeatData();
   const [repeatData, setRepeatdata] = useState<Array<any>>([]);
   //   const [detailData, setDetailData] = useState<any>();
-
   const onTabSelected = index => {
     console.log('the tab index is:', index);
     setCurrentTab(index);

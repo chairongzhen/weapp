@@ -28,16 +28,29 @@ export default function RepeatSetting({ data, current, onChange, onAdd,onEmpty }
   const onEmptyClick = () => {
     onEmpty();
   }
+  
+  const [canAdd,setCanAdd] = useState<boolean>(false);
+  const [canEdit,setCanEdit] = useState<boolean>(false);
+  const [canDel,setCanDel] = useState<boolean>(false);
+  const [canEmpty,setCanEmpty] = useState<boolean>(false);
+
 
   useEffect(() => {
     setOptions(getOptions(data, tick, onHandleChanged));
+    if(data?.tags?.indexOf(tick) > -1 ) {
+      setCanEdit(true);
+      setCanAdd(false);
+    } else {
+      setCanAdd(true);
+      setCanEdit(false);
+    }
+    if(data?.tags?.lenght===0) {
+      setCanEmpty(true);
+      setCanAdd(true);
+    }
   }, [data, tick]);
 
-  const canAdd = ()=> {
-    if(data?.tags.indexOf(tick) > -1 ) {
-      console.log('here we go...',tick);
-    }
-  }
+
 
   return (
     <View className="p_repeatsetting">

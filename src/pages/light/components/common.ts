@@ -148,193 +148,6 @@ export const xAsixData = [
   "00:00"
 ];
 
-let test = [
-  0,
-  null,
-  null,
-  100,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  100,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  80,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null
-];
-let test2 = [
-  50,
-  {
-    value: 100,
-    symbol: "star", // 数据级个性化拐点图形
-    symbolSize: 15,
-    itemStyle: {
-      normal: {
-        label: {
-          show: true,
-          textStyle: {
-            fontSize: "20",
-            fontFamily: "微软雅黑",
-            fontWeight: "bold"
-          }
-        }
-      }
-    }
-  },
-  ,
-  null,
-  null,
-  null,
-  null,
-  null,
-  100,
-  0,
-  null
-];
-
 export const getOptions = (data, selected, onHandleChange) => {
   return {
     title: {
@@ -563,16 +376,25 @@ export const getOptions = (data, selected, onHandleChange) => {
 export const getCurrentIndex = () => {
   let currenthour: number = moment().format("hh");
   let currentmin: number = moment().format("mm");
-  if (currentmin <= 10) currentmin = 10;
-  if (currentmin > 10 && currentmin <= 20) currentmin = 20;
-  if (currentmin > 20 && currentmin <= 30) currentmin = 30;
-  if (currentmin > 30 && currentmin <= 40) currentmin = 40;
-  if (currentmin > 40 && currentmin <= 50) currentmin = 50;
-  if (currentmin > 50 && currentmin <= 59) {
-    currentmin = 0;
+  let formatHour:string = '0';
+  let formatmin :string= '00';
+  if (currentmin <= 10) formatmin = "10";
+  if (currentmin > 10 && currentmin <= 20) formatmin = "20";
+  if (currentmin > 20 && currentmin <= 30) formatmin = "30";
+  if (currentmin > 30 && currentmin <= 40) formatmin = "40";
+  if (currentmin > 40 && currentmin <= 50) formatmin = "50";
+  if (currentmin > 50) {
+    formatmin = "00";
     currenthour =  parseInt(currenthour) + 1;
   }
-  let result: string = `${currenthour}:${currentmin<10?`0${currentmin}`:currentmin}`;
-  console.log("the result is:", moment().format("hh"), currenthour, result);
+
+  if(currenthour.toString().substr(0,1) === "0") {
+    formatHour = currenthour.toString().substr(1,1);
+  } else {
+    formatHour = currenthour.toString();
+  }
+  // console.log('the format hour is:', formatHour);
+  let result: string = `${formatHour}:${formatmin}`;
+  // console.log("the result is:", moment().format("hh"), currenthour, result);
   return result;
 };
