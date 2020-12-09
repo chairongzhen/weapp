@@ -39,6 +39,7 @@ export const useRepeatData = () => {
       formatResult: origin => {
         const generateData = content => {
           const { tags, l1, l2, l3, l4, l5, l6, l7, l8 } = content;
+          let originTags = [...tags];
           var has0: boolean = false;
           var has143: boolean = false;
           for (let t of tags) {
@@ -136,6 +137,7 @@ export const useRepeatData = () => {
               isSuccess: true,
               content: {
                 tags: tags,
+                originTags: originTags,
                 l1: p1,
                 l2: p2,
                 l3: p3,
@@ -176,37 +178,6 @@ export const getDetail = tag => {
     },
     "POST"
   );
-  //     if (isSelected) {
-  //     const [data, loading, run] = useRequest(
-  //       config.apiGetTagVal.url,
-  //       () => {
-  //         return {
-  //           openid: Taro.getStorageSync("unionid"),
-  //           tag: tag
-  //         };
-  //       },
-  //       "POST",
-  //       {
-  //         refreshDeps: [tag]
-  //       }
-  //     );
-  //     console.log("here we go");
-  //     return {
-  //       detail: data?.data?.content,
-  //       detail_message: data?.data?.message,
-  //       detail_isSuccess: data?.data?.isSuccess,
-  //       detail_loading: loading,
-  //       run: run
-  //     };
-  //   } else {
-  //     return {
-  //       detail: null,
-  //       detail_message: "",
-  //       detail_isSuccess: false,
-  //       detail_loading: false,
-  //       run: null
-  //     };
-  //   }
 };
 
 export const useDelTag = tag => {

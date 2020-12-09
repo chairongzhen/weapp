@@ -8,7 +8,15 @@ import "@utils/util";
 import { AtIcon } from "taro-ui";
 import "taro-ui/dist/style/components/icon.scss";
 
-export default function RepeatSetting({ data, current, onChange, onAdd,onEmpty }) {
+export default function RepeatSetting({
+  data,
+  current,
+  onChange,
+  onAdd,
+  onEmpty,
+  onDel,
+  onEdit
+}) {
   const [options, setOptions] = useState<any>(null);
   const [tick, setTick] = useState<number>(current);
   const onCurrrentChanged = val => {
@@ -27,30 +35,83 @@ export default function RepeatSetting({ data, current, onChange, onAdd,onEmpty }
 
   const onEmptyClick = () => {
     onEmpty();
-  }
-  
-  const [canAdd,setCanAdd] = useState<boolean>(false);
-  const [canEdit,setCanEdit] = useState<boolean>(false);
-  const [canDel,setCanDel] = useState<boolean>(false);
-  const [canEmpty,setCanEmpty] = useState<boolean>(false);
+  };
 
+  const onDelClick = () => {
+    onDel();
+  };
+
+  const onEditClick = () => {
+    onEdit();
+  };
+
+  const [canAdd, setCanAdd] = useState<boolean>(false);
+  const [canEdit, setCanEdit] = useState<boolean>(false);
+  const [canDel, setCanDel] = useState<boolean>(false);
+  const [canEmpty, setCanEmpty] = useState<boolean>(false);
+  const [canPrevious, setCanPrevious] = useState<boolean>(true);
+  const [canNext, setCanNext] = useState<boolean>(true);
 
   useEffect(() => {
     setOptions(getOptions(data, tick, onHandleChanged));
-    if(data?.tags?.indexOf(tick) > -1 ) {
-      setCanEdit(true);
-      setCanAdd(false);
-    } else {
-      setCanAdd(true);
-      setCanEdit(false);
-    }
-    if(data?.tags?.lenght===0) {
-      setCanEmpty(true);
-      setCanAdd(true);
+    if (data?.originTags) {
+      if (data?.originTags?.length === 0) {
+        setCanEmpty(false);
+        setCanAdd(true);
+        setCanDel(false);
+        setCanEdit(false);
+      } else {
+        setCanEmpty(true);
+        if (data?.tags?.indexOf(tick) > -1) {
+          setCanEdit(true);
+          setCanAdd(false);
+          setCanDel(true);
+        } else {
+          setCanAdd(true);
+          setCanEdit(false);
+          setCanDel(false);
+        }
+
+        if (tick >= data?.originTags[data?.originTags?.length - 1]) {
+          setCanNext(false);
+          setCanPrevious(true);
+        }
+        if (tick <= data?.originTags[0]) {
+          setCanPrevious(false);
+          setCanNext(true);
+        }
+
+        if (data?.originTags?.length === 1 && tick === data?.originTags[0]) {
+          setCanNext(false);
+          setCanPrevious(false);
+        }
+      }
     }
   }, [data, tick]);
 
+  const onNext = () => {
+    for (let t of data?.originTags) {
+      if (t > tick) {
+        setTick(t);
+        break;
+      }
+    }
+  };
+  const onPrvious = () => {
+    for (let t of data?.originTags) {
+      if (t < tick) {
+        setTick(t);
+        break;
+      }
+    }
+  };
 
+  const onDemo = () => {
+    // setTick(0);
+    // setInterval(() => {
+    //   setTick(tick + 6);
+    // }, 1000);
+  };
 
   return (
     <View className="p_repeatsetting">
@@ -63,14 +124,44 @@ export default function RepeatSetting({ data, current, onChange, onAdd,onEmpty }
           onClick={onAddClick}
           value="add-circle"
           size="25"
-          color="#f79e44"
+          color={canAdd ? "#f79e44" : "grey"}
         ></AtIcon>
-        <AtIcon value="subtract-circle" size="25" color="#f79e44"></AtIcon>
-        <AtIcon value="edit" size="25" color="#f79e44"></AtIcon>
-        <AtIcon value="play" size="25" color="#f79e44"></AtIcon>
-        <AtIcon value="prev" size="25" color="#f79e44"></AtIcon>
-        <AtIcon value="next" size="25" color="#f79e44"></AtIcon>
-        <AtIcon onClick={onEmptyClick} value="trash" size="25" color="#f79e44"></AtIcon>
+        <AtIcon
+          value="subtract-circle"
+          size="25"
+          color={canDel ? "#f79e44" : "grey"}
+          onClick={onDelClick}
+        ></AtIcon>
+        <AtIcon
+          value="edit"
+          size="25"
+          color={canEdit ? "#f79e44" : "grey"}
+          onClick={onEditClick}
+        ></AtIcon>
+        <AtIcon
+          value="play"
+          size="25"
+          color={canEmpty ? "#f79e44" : "grey"}
+          onClick={onDemo}
+        ></AtIcon>
+        <AtIcon
+          value="chevron-left"
+          size="25"
+          color={canEmpty && canPrevious ? "#f79e44" : "grey"}
+          onClick={onPrvious}
+        ></AtIcon>
+        <AtIcon
+          value="chevron-right"
+          size="25"
+          color={canEmpty && canNext ? "#f79e44" : "grey"}
+          onClick={onNext}
+        ></AtIcon>
+        <AtIcon
+          onClick={onEmptyClick}
+          value="trash"
+          size="25"
+          color={canEmpty ? "#f79e44" : "grey"}
+        ></AtIcon>
       </View>
     </View>
   );

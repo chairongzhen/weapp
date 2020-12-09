@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
-import { AtTabs, AtTabsPane,AtMessage } from "taro-ui";
+import { AtTabs, AtTabsPane, AtMessage } from "taro-ui";
 import Taro from "@tarojs/taro";
 import {
   LightSetting,
@@ -9,7 +9,7 @@ import {
   xAsixData
 } from "./components/index";
 import "@utils/util";
-import { useRepeatData,useEmpty } from "./index.hooks";
+import { useRepeatData, useEmpty, useDelTag } from "./index.hooks";
 
 import "@styles/global.less";
 import "./index.less";
@@ -22,11 +22,10 @@ export default function Light() {
   const [tick, setTick] = useState<number>(
     xAsixData.getArrayIndex(getCurrentIndex())
   );
-  const { results, loading, isSuccess,run } = useRepeatData();
+  const { results, loading, isSuccess, run } = useRepeatData();
   const [repeatData, setRepeatdata] = useState<Array<any>>([]);
   //   const [detailData, setDetailData] = useState<any>();
   const onTabSelected = index => {
-    console.log('the tab index is:', index);
     setCurrentTab(index);
   };
   const onRepeatChange = val => {
@@ -35,23 +34,40 @@ export default function Light() {
 
   const onSetting = () => {
     run();
+    setCurrentTab(0);
   };
 
   const onAdd = () => {
     setCurrentTab(1);
   };
 
-  const onEmpty = () => {
-    useEmpty().then(res=>{
-      if(res?.data?.isSuccess) {
-          Taro.atMessage({
-            message: "已清空亮度设置",
-            type: "success"
-          });
-          run();
-        }
+  const onDel = () => {
+    useDelTag(tick).then(res => {
+      if (res?.data?.isSuccess) {
+        Taro.atMessage({
+          message: "已清空亮度设置",
+          type: "success"
+        });
+        run();
+      }
     });
-  }
+  };
+
+  const onEdit = () => {
+    setCurrentTab(1);
+  };
+
+  const onEmpty = () => {
+    useEmpty().then(res => {
+      if (res?.data?.isSuccess) {
+        Taro.atMessage({
+          message: "已清空亮度设置",
+          type: "success"
+        });
+        run();
+      }
+    });
+  };
 
   //   const {
   //     detail,
@@ -64,7 +80,6 @@ export default function Light() {
   useEffect(() => {
     if (currentTab === 1) {
     }
-    
   }, [currentTab]);
 
   useEffect(() => {
@@ -86,7 +101,6 @@ export default function Light() {
         tabList={tabList}
         swipeable={false}
         onClick={onTabSelected}
-
       >
         <AtTabsPane current={currentTab} index={0}>
           <RepeatSettiing
@@ -95,6 +109,8 @@ export default function Light() {
             onChange={onRepeatChange}
             onAdd={onAdd}
             onEmpty={onEmpty}
+            onDel={onDel}
+            onEdit={onEdit}
           />
         </AtTabsPane>
         <AtTabsPane current={currentTab} index={1}>
@@ -104,7 +120,6 @@ export default function Light() {
             onChange={onSetting}
           />
         </AtTabsPane>
-
       </AtTabs>
     </View>
   );
