@@ -98,7 +98,6 @@ export default function Index() {
       }
     });
   };
-  console.log("the auth is:", isAuth);
   return (
     <>
       <View className="p_index">

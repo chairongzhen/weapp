@@ -1,16 +1,16 @@
 import { Component } from "react";
 import "./app.less";
 import Taro from "@tarojs/taro";
-import { userLogin,checkUserAuth } from '@common/index';
-
+import { userLogin, checkUserAuth } from "@common/index";
+import "@common/compatible.ts";
 
 class App extends Component {
   componentDidMount() {
-    checkUserAuth().then(res=>{
-      if(res) {
+    checkUserAuth().then(res => {
+      if (res) {
         userLogin();
       }
-    })    
+    });
   }
 
   componentDidShow() {}

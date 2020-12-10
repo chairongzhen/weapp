@@ -3,13 +3,44 @@ import { View, Text, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import logo from "@assets/images/qrcode.png";
 import "./esp.less";
+import { checkSaveImageAuth } from "@common/checkAuth";
+import { AtMessage } from "taro-ui";
+import "taro-ui/dist/style/components/message.scss";
 export default function Esp() {
+  const onLongPress = () => {
+    if (checkSaveImageAuth) {
+      Taro.saveImageToPhotosAlbum({
+        filePath: logo
+      }).then(r => {
+        Taro.atMessage({
+          message: "已保存到相册,请打开微信扫一扫识别图片进入设备配置页面",
+          type: "success"
+        });
+      });
+    } else {
+      Taro.authorize({
+        scope: "scope.writePhotosAlbum"
+      }).then(() => {
+        Taro.saveImageToPhotosAlbum({
+          filePath: logo
+        }).then(r => {
+          Taro.atMessage({
+            message: "已保存到相册,请打开微信扫一扫识别图片进入设备配置页面",
+            type: "success"
+          });
+        });
+      });
+    }
+  };
   return (
     <View className="p_esp">
+      <AtMessage />
       <View>
-        <Image src={logo}></Image>
+        <Image onLongPress={onLongPress} src={logo}></Image>
       </View>
-      <View>请长按识别二维码，将跳转到智能灯配置页面！</View>
+      <View>
+        因小程序限制无法长按识别，请长按图片保存到相册后，通过微信扫一扫识别二维码！
+      </View>
     </View>
   );
 }
