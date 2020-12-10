@@ -7,41 +7,60 @@ import "taro-ui/dist/style/components/icon.scss";
 import "@styles/global.less";
 import "./index.less";
 
-
 export default function Setting() {
-  const [ nickName ]= useState<string>(Taro.getStorageSync("nickname"));
-  
+  const [nickName] = useState<string>(Taro.getStorageSync("nickname"));
+  const [wifi, setWifi] = useState<string>("");
+  const [isEsp, setIsEsp] = useState<boolean>(false);
+
   useEffect(() => {
     Taro.setNavigationBarTitle({ title: nickName });
-  }, [nickName]);
+    Taro.getConnectedWifi({
+      success: function(res) {
+        if (res?.wifi?.SSID) {
+          setWifi(res?.wifi?.SSID);
+          let reg = RegExp(/^esp_/);
+          if (reg.test(wifi)) {
+            setIsEsp(true);
+          }
+        }
+      }
+    });
+  }, [nickName, wifi]);
 
-  
-
+  const onEsp = () => {
+    Taro.navigateTo({
+      url: "/pages/setting/esp"
+    });
+  };
   return (
     <View className="p_setting">
       <View>
         <View></View>
         <AtList>
           <AtListItem title="时区" extraText="中国" />
-          <AtListItem title="网络" extraText="wifi" />
+          <AtListItem
+            onClick={isEsp ? onEsp : null}
+            title="网络"
+            extraText={wifi}
+            arrow={isEsp ? "right" : null}
+          />
         </AtList>
       </View>
       <View>
         <View>设备信息</View>
         <AtList>
           <AtListItem title="用户" extraText={nickName} />
-          <AtListItem title="设备名称" extraText="esp-1111" />
           <AtListItem title="固件版本" extraText="1.01" />
           <AtListItem title="使用时间 " extraText="0h" />
         </AtList>
       </View>
-      <View>
+      {/* <View>
         <View>设置</View>
         <AtList>
           <AtListItem title="网络设置" />
           <AtListItem title="恢复出厂设置" />
         </AtList>
-      </View>
+      </View> */}
     </View>
   );
 }
