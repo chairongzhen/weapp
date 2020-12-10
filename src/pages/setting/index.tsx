@@ -6,7 +6,7 @@ import "taro-ui/dist/style/components/list.scss";
 import "taro-ui/dist/style/components/icon.scss";
 import "@styles/global.less";
 import "./index.less";
-import useSetting from './index.hook';
+
 
 export default function Setting() {
   const [ nickName ]= useState<string>(Taro.getStorageSync("nickname"));

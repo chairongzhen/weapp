@@ -20,7 +20,7 @@ import { xAsixData, TimeSetting } from "./index";
 import "@utils/util";
 
 import Operation from "./operation";
-import { getDetail, useUpdate } from "../index.hooks";
+import { getDetail, useUpdate,useUpdateSetting } from "../index.hooks";
 
 export default function LightSetting({ selected, current, onChange }) {
   const [currentTick, setCurrentTick] = useState<number>(current);
@@ -75,8 +75,8 @@ export default function LightSetting({ selected, current, onChange }) {
   const onSave = () => {
     useUpdate(currentTick, [l1, l2, l3, l4, l5, l6, l7, l8].join(",")).then(
       res => {
-        console.log("the res is:", res);
         if (res?.data?.isSuccess) {
+          useUpdateSetting("repeat","production","none");
           onChange();
           Taro.atMessage({
             message: "保存成功",

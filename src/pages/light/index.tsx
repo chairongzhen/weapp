@@ -24,7 +24,7 @@ export default function Light() {
   );
   const { results, loading, isSuccess, run } = useRepeatData();
   const [repeatData, setRepeatdata] = useState<Array<any>>([]);
-  //   const [detailData, setDetailData] = useState<any>();
+
   const onTabSelected = index => {
     setCurrentTab(index);
   };
@@ -69,13 +69,6 @@ export default function Light() {
     });
   };
 
-  //   const {
-  //     detail,
-  //     detail_message,
-  //     detail_isSuccess,
-  //     detail_loading,
-  //     run
-  //   } = useDetail(tick);
 
   useEffect(() => {
     if (currentTab === 1) {
@@ -88,11 +81,6 @@ export default function Light() {
     }
   }, [loading]);
 
-  //   useEffect(() => {
-  //     if (!detail_loading && detail_isSuccess) {
-  //       setDetailData(detail);
-  //     }
-  //   }, [detail_loading]);
   return (
     <View className="p_light">
       <AtMessage />

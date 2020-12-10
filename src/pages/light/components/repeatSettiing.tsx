@@ -7,6 +7,7 @@ import "./repeatSetting.less";
 import "@utils/util";
 import { AtIcon } from "taro-ui";
 import "taro-ui/dist/style/components/icon.scss";
+import { useUpdateSetting } from '../index.hooks';
 
 export default function RepeatSetting({
   data,
@@ -19,6 +20,7 @@ export default function RepeatSetting({
 }) {
   const [options, setOptions] = useState<any>(null);
   const [tick, setTick] = useState<number>(current);
+  
   const onCurrrentChanged = val => {
     setTick(val);
     onChange(val);
@@ -51,6 +53,7 @@ export default function RepeatSetting({
   const [canEmpty, setCanEmpty] = useState<boolean>(false);
   const [canPrevious, setCanPrevious] = useState<boolean>(true);
   const [canNext, setCanNext] = useState<boolean>(true);
+  const [canPlay,setCanPlay] = useState<boolean>(true);
 
   useEffect(() => {
     setOptions(getOptions(data, tick, onHandleChanged));
@@ -107,10 +110,30 @@ export default function RepeatSetting({
   };
 
   const onDemo = () => {
-    // setTick(0);
-    // setInterval(() => {
-    //   setTick(tick + 6);
-    // }, 1000);
+    let origini:number = tick;
+    let intervalid: any = null;
+      useUpdateSetting("repeat", "test", "none").then(res => {
+        if (res?.data?.isSuccess) {
+          let i: number = 0;
+          let max: number = 143;
+          setTick(i);
+          setCanPlay(false);
+          function demoRun() {
+            i += 6;
+            setTick(i);
+            if (i >= max) {
+              clearInterval(intervalid);
+              useUpdateSetting("repeat","production","none").then(r=>{
+                if(r?.data?.isSuccess) {
+                  setTick(origini);
+                  setCanPlay(true);
+                }
+              });
+            }
+          }
+          intervalid = setInterval(demoRun, 1000);
+        }
+      })
   };
 
   return (
@@ -121,43 +144,44 @@ export default function RepeatSetting({
       </View>
       <View className="p_repeat_buttons">
         <AtIcon
-          onClick={onAddClick}
+          onClick={canAdd?onAddClick:null}
           value="add-circle"
           size="25"
           color={canAdd ? "#f79e44" : "grey"}
+
         ></AtIcon>
         <AtIcon
           value="subtract-circle"
           size="25"
           color={canDel ? "#f79e44" : "grey"}
-          onClick={onDelClick}
+          onClick={canDel?onDelClick:null}
         ></AtIcon>
         <AtIcon
           value="edit"
           size="25"
           color={canEdit ? "#f79e44" : "grey"}
-          onClick={onEditClick}
+          onClick={canEdit?onEditClick:null}
         ></AtIcon>
         <AtIcon
           value="play"
           size="25"
-          color={canEmpty ? "#f79e44" : "grey"}
-          onClick={onDemo}
+          color={canEmpty && canPlay ? "#f79e44" : "grey"}
+          onClick={canEmpty?onDemo:null}
         ></AtIcon>
         <AtIcon
           value="chevron-left"
           size="25"
           color={canEmpty && canPrevious ? "#f79e44" : "grey"}
-          onClick={onPrvious}
+          onClick={canEmpty&& canPrevious?onPrvious:null}
         ></AtIcon>
         <AtIcon
           value="chevron-right"
           size="25"
           color={canEmpty && canNext ? "#f79e44" : "grey"}
-          onClick={onNext}
+          onClick={canEmpty && canNext ? onNext:null}
         ></AtIcon>
         <AtIcon
-          onClick={onEmptyClick}
+          onClick={canEmpty?onEmptyClick:null}
           value="trash"
           size="25"
           color={canEmpty ? "#f79e44" : "grey"}

@@ -9,11 +9,24 @@ import "@styles/global.less";
 import "./index.less";
 import LogoImage from "@assets/images/logo.png";
 import { userLogin,checkUserAuth } from '@common/index';
-import { config } from '@config/request.config';
-
+import useSetting from '@hooks/useSetting';
+import { useUpdateSetting,getDetail,useUpdateFix } from '../light/index.hooks';
+import { xAsixData,getCurrentIndex } from '../light/components/index';
 
 export default function Index() {
   const [isAuth,setIsAuth] = useState<boolean>(true);
+
+  const [mode,setMode] = useState<string>("repeat");
+  const [isOpen,setIsOpen] = useState<boolean>(false);
+
+  useEffect(()=>{
+    useSetting().then(res=>{
+      if(res?.data?.isSuccess) {
+        setMode(res?.data?.content?.repeatMode);
+      }
+    })
+  },[])
+
   useEffect(()=>{
     checkUserAuth().then(res=>{
       if(!res) {
@@ -26,9 +39,56 @@ export default function Index() {
     setIsAuth(true);
   }
 
-  // useEffect(()=>{
-  //   console.log("the isautho status is:",isAuth);
-  // },[isAuth])
+
+  const onRepeat = ()=> {
+    if(mode !== "repeat") {   
+      useUpdateSetting("repeat","production","none").then(res=>{
+        if(res?.data?.isSuccess) {
+          setMode("repeat");
+        }
+      })
+    }
+  }
+
+  const onFix = ()=> {
+    if(mode !== "fix") {
+      useUpdateSetting("fix","production","none").then(res=>{
+        if(res?.data?.isSuccess) {
+          setMode("fix");
+          getDetail(xAsixData.getArrayIndex(getCurrentIndex())).then(res=>{
+            if(res?.data?.isSuccess) {
+              const { l1, l2,l3,l4,l5,l6,l7,l8} = res?.data?.content;
+              useUpdateFix(l1,l2,l3,l4,l5,l6,l7,l8);
+            } 
+          });
+        }
+      })
+    }
+  }
+
+  const onAll = () => {
+      setMode("all");
+      
+      useUpdateSetting("fix","production","none").then(res=>{
+        if(res?.data?.isSuccess) {
+          setMode("all");
+          if(isOpen) {
+            useUpdateFix(0,0,0,0,0,0,0,0).then(res=>{
+              if(res?.data?.isSuccess) {
+                setIsOpen(false);
+              }
+            });
+          } else {
+            useUpdateFix(100,100,100,100,100,100,100,100).then(res=>{
+              if(res?.data?.isSuccess) {
+                setIsOpen(true);
+              }
+            });
+          }
+          
+        }
+      })
+  }
 
   return (
     <>
@@ -37,14 +97,14 @@ export default function Index() {
         <Image src={LogoImage} />
       </View>
       <View>
-        <AtButton>工作安排</AtButton>
+        <AtButton onClick={onRepeat} className={mode==="repeat"?"p_selectbutton":""} type='secondary'>循环工作</AtButton>
       </View>
       <View>
         <View>
-          <AtButton>开启</AtButton>
+          <AtButton onClick={onFix} className={mode==="fix"?"p_selectbutton":""} type='secondary'>固定</AtButton>
         </View>
         <View>
-          <AtButton>关闭</AtButton>
+  <AtButton onClick={onAll} className={mode === "all"?"p_selectbutton":""} type='secondary'>{isOpen?"全关":"全开"}</AtButton>
         </View>
       </View>
     </View>
