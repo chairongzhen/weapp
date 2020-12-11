@@ -9,8 +9,8 @@ import "./index.less";
 
 export default function Setting() {
   const [nickName] = useState<string>(Taro.getStorageSync("nickname"));
-  const [wifi, setWifi] = useState<string>("esp_1234");
-  const [isEsp, setIsEsp] = useState<boolean>(true);
+  const [wifi, setWifi] = useState<string>("");
+  const [isEsp, setIsEsp] = useState<boolean>(false);
 
   useEffect(() => {
     Taro.setNavigationBarTitle({ title: nickName });

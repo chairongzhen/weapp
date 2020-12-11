@@ -5,12 +5,17 @@ import {
   AtModal,
   AtModalHeader,
   AtModalContent,
-  AtModalAction
+  AtModalAction,
+  AtFab,
+  AtDrawer
 } from "taro-ui";
 import Taro, { getCurrentInstance } from "@tarojs/taro";
 
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "taro-ui/dist/style/components/modal.scss";
+import "taro-ui/dist/style/components/fab.scss";
+import "taro-ui/dist/style/components/drawer.scss";
+import "taro-ui/dist/style/components/list.scss";
 import "@styles/global.less";
 import "./index.less";
 import LogoImage from "@assets/images/logo.png";
@@ -28,6 +33,7 @@ export default function Index() {
 
   const [mode, setMode] = useState<string>("repeat");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [drawerShow,setDrawerShow] = useState<boolean>(false);
 
   useEffect(() => {
     useSetting().then(res => {
@@ -98,6 +104,18 @@ export default function Index() {
       }
     });
   };
+
+  const onDrawerClose = () => {
+    setDrawerShow(false);
+  }
+
+  const onDrawerClick = (index) => {
+    if(index === 0) {
+      Taro.switchTab({url:"/pages/light/index"});
+    } else if(index === 1) {
+      Taro.navigateTo({url:"/pages/setting/esp"});
+    }
+  }
   return (
     <>
       <View className="p_index">
@@ -134,6 +152,7 @@ export default function Index() {
           </View>
         </View>
       </View>
+      
       {!isAuth ? (
         <AtModal isOpened className="p_modal_auth">
           <AtModalHeader>获取用户信息</AtModalHeader>
@@ -157,6 +176,19 @@ export default function Index() {
           </AtModalAction>
         </AtModal>
       ) : null}
+
+    <View className="p_fixed">
+      <AtFab size="small" onClick={()=>setDrawerShow(true)}>
+        <Text  className='at-fab__icon at-icon at-icon-menu'></Text>
+      </AtFab>
+      </View>
+      <AtDrawer 
+        onItemClick={onDrawerClick}
+        show={drawerShow} 
+        mask 
+        onClose={onDrawerClose} 
+        items={['联网', '单机']}
+      ></AtDrawer>
     </>
   );
 }

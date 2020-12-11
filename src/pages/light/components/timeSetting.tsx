@@ -30,9 +30,9 @@ export default function TimeSetting({tick,onChange}) {
     
     return (
       <View className="p_timesetting">
-        <AtIcon value="add-circle" size="25" color="#F68717" onClick={()=>onTickChange(true)}></AtIcon>
-        <text>{xAsixData[current]}</text>
         <AtIcon value="subtract-circle" size="25" color="#F68717" onClick={()=>onTickChange(false)}></AtIcon>
+        <text>{xAsixData[current]}</text>
+        <AtIcon value="add-circle" size="25" color="#F68717" onClick={()=>onTickChange(true)}></AtIcon>
       </View>
     );
   }
