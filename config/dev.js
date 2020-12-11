@@ -9,10 +9,8 @@ module.exports = {
     devServer: {
       proxy: {
         "/service/": {
-          target: "https://www.polypite.com/",
-          pathRewrite: {
-            "^/service/": "/service/"
-          }
+          target: "https://www.polypite.com",
+          changeOrigin: true,
         }
       }
     }

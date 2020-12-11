@@ -34,6 +34,11 @@ export default function Setting() {
       url: "/pages/setting/esp"
     });
   };
+  const onQuit = ()=> {
+    Taro.setStorageSync("unionid","");
+    Taro.setStorageSync("nickname","");
+    Taro.navigateTo({ url: "/pages/login/index" });
+  }
   return (
     <View
       className={
@@ -55,18 +60,17 @@ export default function Setting() {
       <View>
         <View>设备信息</View>
         <AtList>
-          <AtListItem title="用户" extraText={nickName} />
           <AtListItem title="固件版本" extraText="1.01" />
           <AtListItem title="使用时间 " extraText="0h" />
         </AtList>
       </View>
-      {/* <View>
-        <View>设置</View>
+      <View>
+        <View>用户信息</View>
         <AtList>
-          <AtListItem title="网络设置" />
-          <AtListItem title="恢复出厂设置" />
+          <AtListItem title="用户" extraText={nickName} />
+          <AtListItem title="退出登陆" onClick={onQuit} />
         </AtList>
-      </View> */}
+      </View>
     </View>
   );
 }

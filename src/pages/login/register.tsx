@@ -10,14 +10,16 @@ import "taro-ui/dist/style/components/button.scss";
 import "taro-ui/dist/style/components/loading.scss";
 import "taro-ui/dist/style/components/message.scss";
 import "@styles/global.less";
-import "./index.less";
+import "./register.less";
 import LogoImage from "@assets/images/logo.png";
-import { useAppLogin } from './index.hooks';
+import { useRegister } from './index.hooks';
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState<string>("");
   const [pass, setPass] = useState<string>("");
-  const onLogin = ()=> {
+  const [pass2, setPass2] = useState<string>("");
+  const [nickname,setNickName] = useState<string>("");
+  const onRegister = ()=> {
     if(email === "") {
       Taro.atMessage({
         message: "请输入email地址",
@@ -28,32 +30,33 @@ export default function Login() {
       Taro.atMessage({
         message: "请输入密码",
         type: "error"
-      });
+      }); 
       return;
-    } 
-    useAppLogin(email,pass).then(res=>{
-      if(res?.data?.isSuccess) {
-
-        const { nickname,openid } = res?.data?.content;
-        console.log('the nick is:', nickname,openid);
-        Taro.setStorageSync('unionid',openid);
-        Taro.setStorageSync('nickname',nickname);
-        Taro.switchTab({url: '/pages/index/index'})
-      } else {
+    }else if(pass2 === "") {
         Taro.atMessage({
-          message: res?.data?.message,
-          type: "error"
-        });
-        return;
-      }
+            message: "重复密码不能为空",
+            type: "error"
+          }); 
+          return;
+    } else if(pass !== pass2) {
+        Taro.atMessage({
+            message: "两次密码不一致",
+            type: "error"
+          }); 
+          return;
+    } 
+    useRegister(email,pass,nickname).then(res=>{
+        Taro.atMessage({
+            message: res?.data?.message,
+            type: res?.data?.isSuccess?"success":"error"
+          }); 
+          
+          if(res?.data?.isSuccess) {
+              Taro.navigateTo({
+                  url:"/pages/index/index"});
+            }
     })
   } 
-
-  const onRegister = ()=>{
-    Taro.navigateTo({
-      url: "/pages/login/register"
-    })
-  }
   return (
     <View
       className={
@@ -64,7 +67,7 @@ export default function Login() {
       <View>
         <Image src={LogoImage} />
       </View>
-      <View>EMAIL ADDRESS</View>
+      <View>邮件地址</View>
       <View>
         <AtInput
           name="email"
@@ -74,7 +77,7 @@ export default function Login() {
           onChange={val => setEmail(val.toString())}
         ></AtInput>
       </View>
-      <View>PASSWORD</View>
+      <View>密码</View>
       <View className="p_loginpage_lastiview">
         <AtInput
           name="password"
@@ -84,8 +87,27 @@ export default function Login() {
           onChange={val => setPass(val.toString())}
         ></AtInput>
       </View>
-      <AtButton type="primary" onClick={onLogin}>Login</AtButton>
-      <AtButton type="secondary" onClick={onRegister}>Sign up</AtButton>
+      <View>重复密码</View>
+      <View className="p_loginpage_lastiview">
+        <AtInput
+          name="password2"
+          type="password"
+          placeholder="请输入密码"
+          value={pass2}
+          onChange={val => setPass2(val.toString())}
+        ></AtInput>
+      </View>
+      <View>显示名</View>
+      <View className="p_loginpage_lastiview">
+        <AtInput
+          name="password2"
+          type="password"
+          placeholder="请输入密码"
+          value={nickname}
+          onChange={val => setNickName(val.toString())}
+        ></AtInput>
+      </View>
+      <AtButton type="primary" onClick={onRegister}>注册</AtButton>
     </View>
   );
 }

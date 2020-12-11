@@ -8,6 +8,7 @@ import "@utils/util";
 import { AtIcon } from "taro-ui";
 import "taro-ui/dist/style/components/icon.scss";
 import { useUpdateSetting } from '../index.hooks';
+import { useReady } from "@tarojs/taro";
 
 export default function RepeatSetting({
   data,
@@ -54,6 +55,13 @@ export default function RepeatSetting({
   const [canPrevious, setCanPrevious] = useState<boolean>(true);
   const [canNext, setCanNext] = useState<boolean>(true);
   const [canPlay,setCanPlay] = useState<boolean>(true);
+
+  useReady(()=>{
+    let element = document.querySelector("#__techarts__0").children[1];
+    if(element) {
+      document.querySelector("#__techarts__0").removeChild(element);
+    }
+  });
 
   useEffect(() => {
     setOptions(getOptions(data, tick, onHandleChanged));

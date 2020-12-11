@@ -13,7 +13,18 @@ class App extends Component {
         }
       });
     } else {
-      console.log("i am h5");
+      let unionid = Taro.getStorageSync('unionid');
+      if(unionid && unionid !=="") {
+          // console.log('here we go..')
+          // Taro.switchTab({
+          //   url: "/pages/index/index"
+          // })
+      } else {
+        Taro.navigateTo({
+          url: "/pages/login/index"
+        })
+      }
+
     }
   }
 

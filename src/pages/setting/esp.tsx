@@ -33,7 +33,7 @@ export default function Esp() {
     }
   };
   return (
-    <View className="p_esp">
+    <View className={process.env.TARO_ENV === "weapp" ?"p_esp":"p_esp_h5"}>
       <AtMessage />
       <View>
         <Image onLongPress={onLongPress} src={logo}></Image>

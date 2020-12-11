@@ -5,7 +5,7 @@
 // wechat外网服务
 export const defaultHost =
   process.env.TARO_ENV === "weapp"
-    ? "https://www.polypite.com/service"
+    ? "https://www.polypite.com/"
     : "./service";
 
 export const config = {
@@ -50,5 +50,11 @@ export const config = {
   },
   apiLogin: {
     url: "/minilogin"
+  },
+  apiApplogin: {
+    url: "/applogin"
+  },
+  apiRegister: {
+    url: "/register"
   }
 };
