@@ -13,18 +13,20 @@ export default function Setting() {
   const [isEsp, setIsEsp] = useState<boolean>(false);
 
   useEffect(() => {
-    Taro.setNavigationBarTitle({ title: nickName });
-    Taro.getConnectedWifi({
-      success: function(res) {
-        if (res?.wifi?.SSID) {
-          setWifi(res?.wifi?.SSID);
-          let reg = RegExp(/^esp_/);
-          if (reg.test(wifi)) {
-            setIsEsp(true);
+    if (process.env.TARO_ENV === "weapp") {
+      Taro.setNavigationBarTitle({ title: nickName });
+      Taro.getConnectedWifi({
+        success: function(res) {
+          if (res?.wifi?.SSID) {
+            setWifi(res?.wifi?.SSID);
+            let reg = RegExp(/^esp_/);
+            if (reg.test(wifi)) {
+              setIsEsp(true);
+            }
           }
         }
-      }
-    });
+      });
+    }
   }, [nickName, wifi]);
 
   const onEsp = () => {
@@ -33,7 +35,11 @@ export default function Setting() {
     });
   };
   return (
-    <View className="p_setting">
+    <View
+      className={
+        process.env.TARO_ENV === "weapp" ? "p_setting" : "p_setting_h5"
+      }
+    >
       <View>
         <View></View>
         <AtList>

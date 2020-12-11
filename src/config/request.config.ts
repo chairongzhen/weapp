@@ -1,5 +1,12 @@
-//export const defaultHost = "http://127.0.0.1:7001";
-export const defaultHost = "https://www.polypite.com/service";
+// // wechat内网服务
+// export const defaultHost =
+//   process.env.TARO_ENV === "weapp" ? "http://127.0.0.1:7001" : "./service";
+
+// wechat外网服务
+export const defaultHost =
+  process.env.TARO_ENV === "weapp"
+    ? "https://www.polypite.com/service"
+    : "./service";
 
 export const config = {
   apiGetSet: {

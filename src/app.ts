@@ -6,11 +6,15 @@ import "@common/compatible.ts";
 
 class App extends Component {
   componentDidMount() {
-    checkUserAuth().then(res => {
-      if (res) {
-        userLogin();
-      }
-    });
+    if (process.env.TARO_ENV === "weapp") {
+      checkUserAuth().then(res => {
+        if (res) {
+          userLogin();
+        }
+      });
+    } else {
+      console.log("i am h5");
+    }
   }
 
   componentDidShow() {}

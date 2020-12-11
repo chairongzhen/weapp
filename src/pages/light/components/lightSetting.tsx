@@ -20,7 +20,7 @@ import { xAsixData, TimeSetting } from "./index";
 import "@utils/util";
 
 import Operation from "./operation";
-import { getDetail, useUpdate,useUpdateSetting } from "../index.hooks";
+import { getDetail, useUpdate, useUpdateSetting } from "../index.hooks";
 
 export default function LightSetting({ selected, current, onChange }) {
   const [currentTick, setCurrentTick] = useState<number>(current);
@@ -76,7 +76,7 @@ export default function LightSetting({ selected, current, onChange }) {
     useUpdate(currentTick, [l1, l2, l3, l4, l5, l6, l7, l8].join(",")).then(
       res => {
         if (res?.data?.isSuccess) {
-          useUpdateSetting("repeat","production","none");
+          useUpdateSetting("repeat", "production", "none");
           onChange();
           Taro.atMessage({
             message: "保存成功",
@@ -115,7 +115,13 @@ export default function LightSetting({ selected, current, onChange }) {
   }, [selected, currentTick]);
 
   return (
-    <View className="p_lightsetting">
+    <View
+      className={
+        process.env.TARO_ENV === "weapp"
+          ? "p_lightsetting"
+          : "p_lightsetting_h5"
+      }
+    >
       <TimeSetting tick={currentTick} onChange={onTickChanged} />
       <Operation
         index={1}

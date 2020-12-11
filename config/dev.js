@@ -2,10 +2,19 @@ module.exports = {
   env: {
     NODE_ENV: '"development"'
   },
-  defineConstants: {
-  },
+  defineConstants: {},
   mini: {},
   h5: {
-    esnextModules: ['taro-ui']
+    esnextModules: ["taro-ui"],
+    devServer: {
+      proxy: {
+        "/service/": {
+          target: "https://www.polypite.com/",
+          pathRewrite: {
+            "^/service/": "/service/"
+          }
+        }
+      }
+    }
   }
-}
+};

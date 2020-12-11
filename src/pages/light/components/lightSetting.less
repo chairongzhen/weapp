@@ -46,3 +46,43 @@
     background-color: #f79e44;
   }
 }
+
+.p_lightsetting_h5 {
+  > taro-view-core {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    > taro-view-core:first-child {
+      margin-left: 50px;
+      justify-content: center;
+      align-items: center;
+      width: 10%;
+      > taro-image-core {
+        width: 50px;
+        height: 50px;
+        img {
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+    > taro-view-core:nth-child(2) {
+      width: 80%;
+    }
+    > taro-view-core:last-child {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      input {
+        border: 2px solid #c56c12;
+        width: 65px;
+        text-align: center;
+      }
+    }
+  }
+
+  .at-button--primary {
+    background-color: #f79e44;
+  }
+}

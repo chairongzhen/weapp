@@ -41,7 +41,7 @@ export default function Machine() {
   const onScan = () => {
     Taro.scanCode({
       success: function(res) {
-        if(res.result) {
+        if (res.result) {
           addMac(res.result);
         }
       }
@@ -79,7 +79,7 @@ export default function Machine() {
     }
   };
 
-  const addMac = (mid) => {
+  const addMac = mid => {
     bindMac(mid).then(res => {
       if (!res?.data?.isSuccess) {
         Taro.atMessage({
@@ -95,7 +95,7 @@ export default function Machine() {
       run();
       setShowModal(false);
     });
-  }
+  };
 
   const onAdd = () => {
     if (input.length === 0) {
@@ -129,7 +129,7 @@ export default function Machine() {
             </View>
             <View className="p_scan_view" onClick={onScan}>
               <Image className="p_machine_img" src={scanPng} />
-              <text>扫一扫</text>
+              <View className="p_scan_text">扫一扫</View>
             </View>
           </AtModalContent>
           <AtModalAction>
@@ -145,7 +145,7 @@ export default function Machine() {
         }}
       >
         <AtIcon value="add" size="20" color="#c56c12"></AtIcon>
-        <Text>添加设备</Text>
+        <View className="p_machine_add_text">添加设备</View>
       </View>
       <AtList>
         {macs?.map((item, index) => {
