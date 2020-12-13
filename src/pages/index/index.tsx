@@ -117,7 +117,7 @@ export default function Index() {
     if (index === 0) {
       Taro.switchTab({ url: "/pages/light/index" });
     } else if (index === 1) {
-      Taro.navigateTo({ url: "/pages/setting/esp" });
+      Taro.navigateTo({ url: "/pages/offline/frame" });
     }
   };
   return (

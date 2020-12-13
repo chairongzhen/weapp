@@ -12,6 +12,7 @@ import "taro-ui/dist/style/components/message.scss";
 import "@styles/global.less";
 import "./index.less";
 import LogoImage from "@assets/images/logo.png";
+import Wechat from "@assets/images/wechat.png";
 import { useAppLogin } from './index.hooks';
 
 export default function Login() {
@@ -33,9 +34,7 @@ export default function Login() {
     } 
     useAppLogin(email,pass).then(res=>{
       if(res?.data?.isSuccess) {
-
         const { nickname,openid } = res?.data?.content;
-        console.log('the nick is:', nickname,openid);
         Taro.setStorageSync('unionid',openid);
         Taro.setStorageSync('nickname',nickname);
         Taro.switchTab({url: '/pages/index/index'})
@@ -53,6 +52,14 @@ export default function Login() {
     Taro.navigateTo({
       url: "/pages/login/register"
     })
+  }
+
+  const onWechatLogin = ()=> {
+    window.location.replace(
+      "https://open.weixin.qq.com/connect/qrconnect?" +
+      "appid=" + "wx824ffce0d4f15829" + "&" +
+      "redirect_uri=" + encodeURIComponent('https://www.polypite.com') + "&" +
+      "scope=snsapi_login#wechat_redirect" )
   }
   return (
     <View
@@ -86,6 +93,12 @@ export default function Login() {
       </View>
       <AtButton type="primary" onClick={onLogin}>Login</AtButton>
       <AtButton type="secondary" onClick={onRegister}>Sign up</AtButton>
+      {
+        process.env.TARO_ENV === "h5" ? 
+        <View className="p_wechatlogin" >
+        <Image src={Wechat} onClick={onWechatLogin}></Image>
+        </View>:null
+      }
     </View>
   );
 }

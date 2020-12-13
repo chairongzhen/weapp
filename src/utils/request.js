@@ -31,7 +31,6 @@ export const request = (url, params = {}, type) => {
       if (!!value) newUrl += `&${key}=${JSON.stringify(value)}`; // 若value没有值，则不添加该字段
   }
   let localHost = /mock/.test(newUrl) ? "." : host;
-  //   return fetch(encodeURI(localHost + newUrl), opt)
   return Taro.request({
     url: encodeURI(localHost + newUrl),
     method: opt.method,

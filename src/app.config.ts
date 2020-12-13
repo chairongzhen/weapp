@@ -7,7 +7,9 @@ export default {
     "pages/403/index",
     "pages/setting/esp",
     "pages/login/index",
-    "pages/login/register"
+    "pages/login/register",
+    "pages/offline/index",
+    "pages/offline/frame"
   ],
   tabBar: {
     color: "#999999",

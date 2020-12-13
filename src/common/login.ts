@@ -10,6 +10,12 @@ const wxlogin = code => {
   });
 };
 
+export const wxh5Login = code => {
+  return request(config.apiWxH5Login.url,{
+    code:code
+  })
+}
+
 export const userLogin = () => {
   Taro.login({
     success: function(res) {
