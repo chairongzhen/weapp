@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AtTabs, AtTabsPane, AtMessage } from "taro-ui";
-import Taro from "@tarojs/taro";
+import Taro, { useDidShow } from "@tarojs/taro";
 import {
   LightSetting,
   RepeatSettiing,
@@ -38,11 +38,9 @@ export default function Light() {
   };
 
   const onAdd = () => {
-    //setCurrentTab(1);
     Taro.navigateTo({
       url: `./setting?tick=${tick}`
-    })
-
+    });
   };
 
   const onDel = () => {
@@ -58,7 +56,9 @@ export default function Light() {
   };
 
   const onEdit = () => {
-    setCurrentTab(1);
+    Taro.navigateTo({
+      url: `./setting?tick=${tick}`
+    });
   };
 
   const onEmpty = () => {
@@ -73,7 +73,6 @@ export default function Light() {
     });
   };
 
-
   useEffect(() => {
     if (currentTab === 1) {
     }
@@ -84,6 +83,14 @@ export default function Light() {
       setRepeatdata(results);
     }
   }, [loading]);
+
+  useDidShow(() => {
+    let pages = Taro.getCurrentPages();
+    let currPage = pages[pages.length - 1]; // 获取当前页面
+    if (currPage?.__data__?.update) {
+      run();
+    }
+  });
 
   return (
     <View className="p_light">
@@ -106,11 +113,7 @@ export default function Light() {
           />
         </AtTabsPane>
         <AtTabsPane current={currentTab} index={1}>
-          <LightSetting
-            selected={currentTab === 1 ? true : false}
-            current={tick}
-            onChange={onSetting}
-          />
+          <LightSetting isFix={true} current={tick} onChange={onSetting} />
         </AtTabsPane>
       </AtTabs>
     </View>

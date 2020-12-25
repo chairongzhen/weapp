@@ -25,6 +25,16 @@ export const useFixSetting = () => {
   };
 };
 
+export const getFixData = () => {
+  return request(
+    config.apiGetFix.url,
+    {
+      openid: Taro.getStorageSync("unionid")
+    },
+    "POST"
+  );
+};
+
 export const useRepeatData = () => {
   const [data, loading, run] = useRequest(
     config.apiGetRepeats.url,
@@ -213,22 +223,20 @@ export const useUpdate = (tag, values) => {
   );
 };
 
-
-export const useUpdateSetting = (showtype,testmode,updatemode) => {
+export const useUpdateSetting = (showtype, testmode, updatemode) => {
   return request(
     config.apiUpdateSet.url,
     {
       openid: Taro.getStorageSync("unionid"),
       repeatmode: showtype,
       productionmode: testmode,
-      updatemode:updatemode
-
+      updatemode: updatemode
     },
     "POST"
-  ); 
-}
+  );
+};
 
-export const useUpdateFix = (l1,l2,l3,l4,l5,l6,l7,l8) => {
+export const useUpdateFix = (l1, l2, l3, l4, l5, l6, l7, l8) => {
   return request(
     config.apiUpdateFix.url,
     {
@@ -243,5 +251,5 @@ export const useUpdateFix = (l1,l2,l3,l4,l5,l6,l7,l8) => {
       l8: l8
     },
     "POST"
-  ); 
-}
+  );
+};

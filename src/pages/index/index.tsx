@@ -9,7 +9,7 @@ import {
   AtFab,
   AtDrawer
 } from "taro-ui";
-import Taro from "@tarojs/taro";
+import Taro, { useDidShow } from "@tarojs/taro";
 
 import "taro-ui/dist/style/components/button.scss"; // 按需引入
 import "taro-ui/dist/style/components/modal.scss";
@@ -24,24 +24,56 @@ import useSetting from "@hooks/useSetting";
 import {
   useUpdateSetting,
   getDetail,
-  useUpdateFix
+  useUpdateFix,
+  getFixData
 } from "../light/index.hooks";
 import { xAsixData, getCurrentIndex } from "../light/components/index";
 
 export default function Index() {
   const [isAuth, setIsAuth] = useState<boolean>(true);
 
-  const [mode, setMode] = useState<string>("repeat");
+  const [mode, setMode] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [drawerShow, setDrawerShow] = useState<boolean>(false);
 
-  useEffect(() => {
+  useDidShow(() => {
     useSetting().then(res => {
       if (res?.data?.isSuccess) {
-        setMode(res?.data?.content?.repeatMode);
+        if (res?.data?.content?.repeatMode === "repeat") {
+          setMode("repeat");
+        } else {
+          getFixData().then(r => {
+            if (r?.data?.content) {
+              const { l1, l2, l3, l4, l5, l6, l7, l8 } = r?.data?.content;
+              if (
+                l1 === 100 &&
+                l2 === 100 &&
+                l3 === 100 &&
+                l4 === 100 &&
+                l5 === 100 &&
+                l6 === 100 &&
+                l7 === 100 &&
+                l8 === 100
+              ) {
+                setMode("on");
+              } else if (
+                l1 === 0 &&
+                l2 === 0 &&
+                l3 === 0 &&
+                l4 === 0 &&
+                l5 === 0 &&
+                l6 === 0 &&
+                l7 === 0 &&
+                l8 === 0
+              ) {
+                setMode("off");
+              }
+            }
+          });
+        }
       }
     });
-  }, []);
+  });
 
   useEffect(() => {
     if (process.env.TARO_ENV === "weapp") {
@@ -86,19 +118,18 @@ export default function Index() {
     }
   };
 
-  const onAll = () => {
-    setMode("all");
-
+  const onAll = (open: boolean) => {
     useUpdateSetting("fix", "production", "none").then(res => {
       if (res?.data?.isSuccess) {
-        setMode("all");
-        if (isOpen) {
+        if (!open) {
+          setMode("off");
           useUpdateFix(0, 0, 0, 0, 0, 0, 0, 0).then(res => {
             if (res?.data?.isSuccess) {
               setIsOpen(false);
             }
           });
         } else {
+          setMode("on");
           useUpdateFix(100, 100, 100, 100, 100, 100, 100, 100).then(res => {
             if (res?.data?.isSuccess) {
               setIsOpen(true);
@@ -140,20 +171,20 @@ export default function Index() {
         <View>
           <View>
             <AtButton
-              onClick={onFix}
-              className={mode === "fix" ? "p_selectbutton" : ""}
+              onClick={() => onAll(true)}
+              className={mode === "on" ? "p_selectbutton" : ""}
               type="secondary"
             >
-              固定
+              全开
             </AtButton>
           </View>
           <View>
             <AtButton
-              onClick={onAll}
-              className={mode === "all" ? "p_selectbutton" : ""}
+              onClick={() => onAll(false)}
+              className={mode === "off" ? "p_selectbutton" : ""}
               type="secondary"
             >
-              {isOpen ? "全关" : "全开"}
+              全关
             </AtButton>
           </View>
         </View>
