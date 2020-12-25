@@ -17,7 +17,7 @@ import "taro-ui/dist/style/components/tabs.scss";
 import "taro-ui/dist/style/components/message.scss";
 
 export default function Light() {
-  const tabList = [{ title: "循环模式" }, { title: "固定设置" }];
+  const tabList = [{ title: "自动模式" }, { title: "手动模式" }];
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [tick, setTick] = useState<number>(
     xAsixData.getArrayIndex(getCurrentIndex())

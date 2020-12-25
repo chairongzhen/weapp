@@ -108,6 +108,12 @@ export default function Machine() {
     }
   };
 
+  const onStep = () => {
+    Taro.navigateTo({
+      url: "/pages/machine/components/step1"
+    });
+  };
+
   return (
     <View className="p_machine">
       {showModal ? (
@@ -138,12 +144,7 @@ export default function Machine() {
         </AtModal>
       ) : null}
       <AtMessage />
-      <View
-        className="p_machine_add"
-        onClick={() => {
-          setShowModal(true);
-        }}
-      >
+      <View className="p_machine_add" onClick={onStep}>
         <AtIcon value="add" size="20" color="#c56c12"></AtIcon>
         <View className="p_machine_add_text">添加设备</View>
       </View>

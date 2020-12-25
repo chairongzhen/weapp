@@ -10,7 +10,9 @@ export default {
     "pages/login/register",
     "pages/offline/index",
     "pages/offline/frame",
-    "pages/light/setting"
+    "pages/light/setting",
+    "pages/machine/components/step1",
+    "pages/machine/components/step2"
   ],
   tabBar: {
     color: "#999999",

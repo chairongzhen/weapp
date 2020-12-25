@@ -165,7 +165,7 @@ export default function Index() {
             className={mode === "repeat" ? "p_selectbutton" : ""}
             type="secondary"
           >
-            循环工作
+            自动工作
           </AtButton>
         </View>
         <View>
