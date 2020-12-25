@@ -17,7 +17,7 @@ import "taro-ui/dist/style/components/tabs.scss";
 import "taro-ui/dist/style/components/message.scss";
 
 export default function Light() {
-  const tabList = [{ title: "循环模式" }, { title: "亮度设置" }];
+  const tabList = [{ title: "循环模式" }, { title: "固定设置" }];
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [tick, setTick] = useState<number>(
     xAsixData.getArrayIndex(getCurrentIndex())
@@ -38,7 +38,11 @@ export default function Light() {
   };
 
   const onAdd = () => {
-    setCurrentTab(1);
+    //setCurrentTab(1);
+    Taro.navigateTo({
+      url: `./setting?tick=${tick}`
+    })
+
   };
 
   const onDel = () => {

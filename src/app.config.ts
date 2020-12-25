@@ -9,7 +9,8 @@ export default {
     "pages/login/index",
     "pages/login/register",
     "pages/offline/index",
-    "pages/offline/frame"
+    "pages/offline/frame",
+    "pages/light/setting"
   ],
   tabBar: {
     color: "#999999",
