@@ -2,7 +2,9 @@ import { Component } from "react";
 import "./app.less";
 import Taro from "@tarojs/taro";
 import { userLogin, checkUserAuth, wxh5Login } from "@common/index";
+import compatible from '@common/compatible';
 import { getQueryString } from "@utils/util";
+require('promise.prototype.finally').shim();
 
 class App extends Component {
   componentDidMount() {
@@ -56,3 +58,4 @@ class App extends Component {
 }
 
 export default App;
+

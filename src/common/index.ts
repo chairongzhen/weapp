@@ -1,2 +1,2 @@
 export { userLogin,wxh5Login } from './login';
-export { checkUserAuth } from './checkAuth'
+export { checkUserAuth } from './checkAuth';

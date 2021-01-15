@@ -19,7 +19,7 @@ export const request = (url, params = {}, type) => {
   let opt = {
     method: type ? type : "GET",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     }
   };
 
