@@ -1,6 +1,5 @@
 export default {
   pages: [
-
     "pages/index/index",
     "pages/light/index",
     "pages/setting/index",
@@ -28,18 +27,18 @@ export default {
         selectedIconPath: "./assets/tabbar/index_selected.png",
         text: "首页"
       },
-      // {
-      //   pagePath: "pages/index/index",
-      //   iconPath: "./assets/tabbar/light.png",
-      //   selectedIconPath: "./assets/tabbar/light_selected.png",
-      //   text: "灯光"
-      // },
-      // {
-      //   pagePath: "pages/machine/index",
-      //   iconPath: "./assets/tabbar/machine.png",
-      //   selectedIconPath: "./assets/tabbar/machine_selected.png",
-      //   text: "设备"
-      // },
+      {
+        pagePath: "pages/light/index",
+        iconPath: "./assets/tabbar/light.png",
+        selectedIconPath: "./assets/tabbar/light_selected.png",
+        text: "灯光"
+      },
+      {
+        pagePath: "pages/machine/index",
+        iconPath: "./assets/tabbar/machine.png",
+        selectedIconPath: "./assets/tabbar/machine_selected.png",
+        text: "设备"
+      },
       {
         pagePath: "pages/setting/index",
         iconPath: "./assets/tabbar/setting.png",

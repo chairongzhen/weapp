@@ -7,12 +7,31 @@ import LightPng from "@assets/images/light.png";
 import scanPng from "@assets/images/scan.png";
 import newPng from "@assets/images/new.png";
 import qrcodeDemo from "@assets/images/qrcodedemo.png";
+import { bindMac } from "../index.hooks";
 
 export default function Step1() {
   const [input, setInput] = useState<string>();
+  const [qrcode,setQrcode] = useState<string>();
   const onInputChange = val => {
     setInput(val);
   };
+
+  const addMac = mid => {
+    bindMac(mid).then(res => {
+      if (!res?.data?.isSuccess) {
+        Taro.atMessage({
+          message: res?.data?.message,
+          type: "error"
+        });
+        return;
+      }
+      Taro.atMessage({
+        message: "绑定成功",
+        type: "success"
+      });
+    });
+  };
+
   const onAdd = () => {
     if (input.length === 0) {
       Taro.atMessage({
@@ -24,20 +43,47 @@ export default function Step1() {
     }
   };
   const onScan = () => {
-    Taro.scanCode({
-      success: function(res) {
-        if (res.result) {
-          addMac(res.result);
+    if(process.env.TARO_ENV === "weapp") {
+      Taro.scanCode({
+        success: function(res) {
+          if (res.result) {
+            addMac(res.result);
+            onNext();
+          }
         }
-      }
-    });
+      });
+    } else {
+      window?.ppjsbridge?.scanQrCode(); 
+    }
+
   };
+
+  const qrcodeCallback = (content)=> {
+
+    let reg = new RegExp('\^esp_[0-9]{12}$');
+    console.log('here we go 0')
+    if(reg.test(content)) {
+      console.log('here we go 1')
+      addMac(content);
+      onNext()
+    } else {
+      setInput(content);
+    }
+  }
+
+  window.qrcodeCallback = qrcodeCallback;
+
+  // window.addEventListener('setItemEvent',function(e) {
+  //   console.log('here is the localstorage is:',e.newvalue);
+  //   setQrcode(e.newValue);
+  // })
 
   const onNext = () => {
     Taro.navigateTo({
       url: "./step2"
     });
   };
+
   return (
     <View className="p_step1">
       <View className="p_qrcodedemo_view">

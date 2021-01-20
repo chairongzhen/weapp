@@ -20,12 +20,22 @@ export default function Setting() {
           if (res?.wifi?.SSID) {
             setWifi(res?.wifi?.SSID);
             let reg = RegExp(/^esp_/);
-            if (reg.test(wifi)) {
+            if (reg.test(res?.wifi?.SSID)) {
               setIsEsp(true);
             }
           }
         }
       });
+    } else {
+      let ssid = window?.ppjsbridge?.getssid();
+      if(ssid) {
+        setWifi(ssid);
+        let reg = RegExp(/^esp_/);
+        if (reg.test(ssid)) {
+          setIsEsp(true);
+        }
+        
+      }
     }
   }, [nickName, wifi]);
 
@@ -37,7 +47,12 @@ export default function Setting() {
   const onQuit = ()=> {
     Taro.setStorageSync("unionid","");
     Taro.setStorageSync("nickname","");
-    Taro.navigateTo({ url: "/pages/login/index" });
+
+    if(process.env.TARO_ENV === "weapp") {
+      Taro.navigateTo({ url: "/pages/login/index" });
+    } else {
+      window?.ppjsbridge?.logout();
+    }
   }
   return (
     <View

@@ -6,6 +6,7 @@ import compatible from '@common/compatible';
 import { getQueryString } from "@utils/util";
 require('promise.prototype.finally').shim();
 
+
 class App extends Component {
   componentDidMount() {
     if (process.env.TARO_ENV === "weapp") {
@@ -31,15 +32,32 @@ class App extends Component {
           }
         });
       } else {
-        let unionid = Taro.getStorageSync("unionid");
-        if (unionid && unionid !== "") {
+
+        // ?openid=1234&nickname=chai
+        let search = window?.location?.search?.replace("?","");
+        if(search) {
+          let temparr = search.split('&');
+          let openid = temparr[0].split("=")[1];
+          let nickname = temparr[1].split("=")[1];
+          Taro.setStorageSync('unionid',openid);
+          Taro.setStorageSync('nickname',nickname);
+          console.log('the window location',window.location.hash);
+          let hashurl = window.location.hash.replace("#","");
           Taro.switchTab({
-            url: "/pages/index/index"
+            url: hashurl
           });
-        } else {
-          Taro.navigateTo({
-            url: "/pages/login/index"
-          });
+          
+        }  else {
+          let unionid = Taro.getStorageSync("unionid");
+          if (unionid && unionid !== "") {
+            Taro.switchTab({
+              url: "/pages/index/index"
+            });
+          } else {
+            Taro.navigateTo({
+              url: "/pages/login/index"
+            });
+          }
         }
       }
     }

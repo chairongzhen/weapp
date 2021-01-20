@@ -13,6 +13,6 @@ export default function Step4() {
 
   }
   return (
-    <WebView src="http://192.168.1.11:5000/wifi"></WebView>
+    <WebView src="http://10.100.240.85:10086/#/pages/index/index"></WebView>
   );
 }

@@ -42,6 +42,21 @@ export function isEquals(arr1, arr2) {
     );
   }
 
+// export function dispatchEventStorage() {
+//   const qrCodeSetItem = localStorage.setItem;
+//   localStorage.setItem = function(key,val) {
+//     let setEvent = new Event('setItemEvent');
+//     setEvent.key = key;
+//     setEvent.newValue = val;
+//     window.dispatchEvent(setEvent)
+//     qrCodeSetItem.apply(this,arguments);
+//   }
+// }
+
+// export function qrcodeCallback(content) {
+//   window.localStorage.setItem("qrcode",content);
+// }
+
 // 生成唯一标识
 export function generateGUID() {
     let d = new Date().getTime();

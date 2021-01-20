@@ -28,6 +28,7 @@ import {
   getFixData
 } from "../light/index.hooks";
 import { xAsixData, getCurrentIndex } from "../light/components/index";
+import { useMount } from "ahooks";
 
 export default function Index() {
   const [isAuth, setIsAuth] = useState<boolean>(true);
@@ -36,7 +37,15 @@ export default function Index() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [drawerShow, setDrawerShow] = useState<boolean>(false);
 
+
+
   useDidShow(() => {
+    // let openid = Taro?.Current?.router?.params?.openid;
+    // if(openid?.length > 0) {
+    //   let nickname = Taro?.Current?.router?.params?.nickname;
+    //   Taro.setStorageSync('unionid',Taro?.Current?.router?.params?.openid);
+    //   Taro.setStorageSync('nickname',nickname);
+    // }
     useSetting().then(res => {
       if (res?.data?.isSuccess) {
         if (res?.data?.content?.repeatMode === "repeat") {
