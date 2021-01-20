@@ -33,6 +33,7 @@ export default function Machine() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [macs, setMacs] = useState<Array<any>>([]);
   const [input, setInput] = useState<string>();
+  const [isOpened,setIsOpened] = useState<boolean>(false);
 
   const onInputChange = val => {
     setInput(val);
@@ -74,7 +75,8 @@ export default function Machine() {
         });
         break;
       case "关闭":
-        console.log("close");
+        console.log('here we go...')
+        setIsOpened(false);
         break;
     }
   };
@@ -149,10 +151,10 @@ export default function Machine() {
         <View className="p_machine_add_text">添加设备</View>
       </View>
       <AtList>
-        {macs?.map((item, index) => {
+        {macs?.length> 0 ?macs?.map((item, index) => {
           return (
             <AtSwipeAction
-              autoClose
+              autoClose={true}
               key={index}
               onClick={onOperation}
               options={[
@@ -180,7 +182,7 @@ export default function Machine() {
               />
             </AtSwipeAction>
           );
-        })}
+        }):null}
       </AtList>
     </View>
   );

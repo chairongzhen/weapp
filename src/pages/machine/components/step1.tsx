@@ -40,6 +40,7 @@ export default function Step1() {
       });
     } else {
       addMac(`esp_${input}`);
+      onNext();
     }
   };
   const onScan = () => {
@@ -59,11 +60,8 @@ export default function Step1() {
   };
 
   const qrcodeCallback = (content)=> {
-
     let reg = new RegExp('\^esp_[0-9]{12}$');
-    console.log('here we go 0')
     if(reg.test(content)) {
-      console.log('here we go 1')
       addMac(content);
       onNext()
     } else {
@@ -106,11 +104,11 @@ export default function Step1() {
         <Image className="p_machine_img" src={scanPng} />
         <View className="p_scan_text">扫一扫</View>
       </View>
-      <View>
+      {/* <View>
         <AtButton type="primary" size="small" onClick={onNext}>
           下一步
         </AtButton>
-      </View>
+      </View> */}
     </View>
   );
 }
